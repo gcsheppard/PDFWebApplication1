@@ -53,20 +53,28 @@ public class PDFServlet extends HttpServlet {
             //document.add(new Paragraph(text));
             
             Font blue24 = new Font(FontFamily.HELVETICA, 24, Font.BOLD, BaseColor.BLUE);
+            Font blue18 = new Font(FontFamily.HELVETICA, 18, Font.BOLD, BaseColor.BLUE);
+            Font blue12 = new Font(FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.BLUE);
             Chunk blueText = new Chunk("Moor Cat", blue24);
+            Chunk blueText2 = new Chunk("Packing List", blue18);
+            Chunk blueText3 = new Chunk("This picture was taken at Java One.", blue12);
             
             Paragraph p2 = new Paragraph();
             p2.setAlignment(Element.ALIGN_CENTER);
             p2.add(blueText);
             document.add(p2);
             document.add( Chunk.NEWLINE );
+            
+            Paragraph p3 = new Paragraph();
+            p3.setAlignment(Element.ALIGN_CENTER);
+            p3.add(blueText2);
+            document.add(p3);
             document.add( Chunk.NEWLINE );
 
             
             PdfPTable table = new PdfPTable(3);
             table.setWidthPercentage(40);
             table.setWidths(new int[]{1, 3, 5});
-            
             
             PdfPCell cell = new PdfPCell();
             Paragraph p = new Paragraph("1");
@@ -84,12 +92,37 @@ public class PDFServlet extends HttpServlet {
             table.addCell(cell);
             
             cell = new PdfPCell();
-            p = new Paragraph("This picture was taken at Java One.");
-            //p.setAlignment(Element.ALIGN_RIGHT);
-            cell.addElement(p);
+            Paragraph p6 = new Paragraph();
+            p6.setAlignment(Element.ALIGN_LEFT);
+            p6.add(blueText3);
+            cell.addElement(p6);
             //cell.setVerticalAlignment(Element.ALIGN_BOTTOM);
             //cell.setBorder(Rectangle.NO_BORDER);
             table.addCell(cell);
+            
+            PdfPCell cell2 = new PdfPCell();
+            Paragraph p4 = new Paragraph("2");
+            p4.setAlignment(Element.ALIGN_CENTER);
+            cell2.addElement(p4);
+            //cell.setVerticalAlignment(Element.ALIGN_BOTTOM);
+            //cell.setBorder(Rectangle.NO_BORDER);
+            table.addCell(cell2);
+
+            //table.addCell(createImageCell("1.jpg"));
+            Image img2 = Image.getInstance("C:/j2ee/PDFWebApplication1/web/images/2.jpg");
+            //img.scalePercent(10);
+            cell2 = new PdfPCell(img2, true);
+            cell2.setUseBorderPadding(true);
+            table.addCell(cell2);
+            
+            cell2 = new PdfPCell();
+            Paragraph p5 = new Paragraph("This picture was taken at Java Two.");
+            //p.setAlignment(Element.ALIGN_RIGHT);
+            cell2.addElement(p5);
+            //cell.setVerticalAlignment(Element.ALIGN_BOTTOM);
+            //cell.setBorder(Rectangle.NO_BORDER);
+            table.addCell(cell2);
+
 
             document.add(table);
             //table.addCell(createTextCell("This picture was taken at Java One.\nIt shows the iText crew at Java One in 2013."));
